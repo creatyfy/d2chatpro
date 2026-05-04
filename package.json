@@ -1,0 +1,8 @@
+{
+  "name": "d2chatpro",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx --yes serve .",
+    "start": "npx --yes serve ."
+  }
+}
