@@ -444,6 +444,17 @@
   .disclaimer { font-size: 0.75rem; color: var(--gray-400); max-width: 600px; margin: 0 auto 24px; line-height: 1.7; }
   .footer-logo { display: flex; justify-content: center; margin-bottom: 16px; }
   .footer-copy { font-size: 0.78rem; color: var(--gray-400); }
+  
+  /* ADMIN LINK */
+  .admin-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .admin-link:hover { color: var(--yellow); }
 
   /* ANIMATIONS */
   @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
@@ -459,6 +470,38 @@
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--black); }
   ::-webkit-scrollbar-thumb { background: var(--gray-600); border-radius: 3px; }
+
+  /* LEAD MODAL */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal-content {
+    background: var(--gray-900); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 40px; width: 100%; max-width: 420px;
+    position: relative; transform: translateY(20px); transition: transform 0.3s ease;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6); margin: 20px;
+  }
+  .modal-overlay.active .modal-content { transform: translateY(0); }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; color: var(--gray-400);
+    font-size: 1.8rem; cursor: pointer; transition: color 0.2s; line-height: 1;
+  }
+  .modal-close:hover { color: var(--white); }
+  .modal-logo { height: 45px; margin: 0 auto 24px; display: block; }
+  .modal-form { display: flex; flex-direction: column; gap: 16px; }
+  .modal-input {
+    background: var(--gray-800); border: 1px solid var(--glass-border);
+    color: var(--white); padding: 14px 16px; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none;
+    transition: border-color 0.2s; width: 100%;
+  }
+  .modal-input:focus { border-color: var(--yellow); }
+  .modal-title { text-align: center; font-family: 'Syne', sans-serif; margin-bottom: 24px; font-size: 1.4rem; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -749,9 +792,85 @@
     ⚠️ D2CHATPRO é uma extensão independente e não possui qualquer vínculo, parceria ou afiliação com WhatsApp Inc., Meta Platforms, Inc. ou qualquer uma de suas subsidiárias. WhatsApp® é uma marca registrada da Meta Platforms, Inc. O uso desta extensão é de responsabilidade exclusiva do usuário.
   </div>
   <p class="footer-copy">© 2025 D2CHATPRO. Todos os direitos reservados.</p>
+  <a href="/admin.html" class="admin-link">Acesso Restrito</a>
 </footer>
 
+<!-- LEAD CAPTURE MODAL -->
+<div id="leadModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal">&times;</button>
+    <img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" class="modal-logo">
+    <h3 class="modal-title">Crie sua conta gratuita</h3>
+    <form id="leadForm" class="modal-form">
+      <input type="text" id="leadNome" class="modal-input" placeholder="Nome completo" required>
+      <input type="email" id="leadEmail" class="modal-input" placeholder="E-mail" required>
+      <input type="tel" id="leadWhatsapp" class="modal-input" placeholder="WhatsApp com DDD" required>
+      <button type="submit" class="btn-primary" id="leadSubmit" style="width: 100%; margin-top: 8px;">Instalar agora</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  // SUPABASE CONFIGURATION
+  const supabaseUrl = 'https://pixbvjvqfvftflqbbdfz.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpeGJ2anZxZnZmdGZscWJiZGZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MDExNDYsImV4cCI6MjA5MzQ3NzE0Nn0.hdRzN7ViO94yTRh6UGFWq7zd1wRuYE9JtnD2ZqrKxks';
+  const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  // MODAL LOGIC
+  const modal = document.getElementById('leadModal');
+  const closeModal = document.getElementById('closeModal');
+  const leadForm = document.getElementById('leadForm');
+  const leadSubmit = document.getElementById('leadSubmit');
+
+  function openModal(e) {
+    e.preventDefault();
+    modal.classList.add('active');
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener('click', () => modal.classList.remove('active'));
+  }
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  }
+
+  // ATTACH MODAL TO SPECIFIC BUTTONS
+  document.querySelectorAll('button, a').forEach(el => {
+    const text = el.textContent.toLowerCase().trim();
+    if (text.includes('começar grátis') || text.includes('começar gratuitamente') || text.includes('criar conta gratuita agora')) {
+      el.addEventListener('click', openModal);
+    }
+  });
+
+  // SUBMIT FORM TO SUPABASE
+  if (leadForm) {
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('leadNome').value;
+      const email = document.getElementById('leadEmail').value;
+      const whatsapp = document.getElementById('leadWhatsapp').value;
+
+      leadSubmit.textContent = 'Aguarde...';
+      leadSubmit.disabled = true;
+
+      try {
+        const { error } = await supabaseClient.from('cadastros').insert([{ nome, email, whatsapp }]);
+        if (error) throw error;
+        
+        // Redirect to Chrome Web Store on success
+        window.location.href = 'https://chromewebstore.google.com/detail/d2chatpro/hdagfineacponepnaljjkkgjoddgpjld';
+      } catch (err) {
+        console.error(err);
+        alert('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
+        leadSubmit.textContent = 'Instalar agora';
+        leadSubmit.disabled = false;
+      }
+    });
+  }
+
   // SCROLL REVEAL
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
