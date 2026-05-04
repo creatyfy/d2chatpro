@@ -63,13 +63,9 @@
     border-bottom: 1px solid rgba(255,255,255,0.05);
   }
   .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: -0.02em;
-    color: var(--white);
+    display: flex;
+    align-items: center;
   }
-  .logo span { color: var(--yellow); }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { color: var(--gray-200); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
   .nav-links a:hover { color: var(--white); }
@@ -249,7 +245,7 @@
   }
   .social-proof p { font-size: 0.8rem; color: var(--gray-400); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px; }
   .logos { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
-  .logo-item { color: var(--gray-400); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .logo-item { display: flex; align-items: center; }
 
   /* BENEFITS */
   .benefits {
@@ -446,8 +442,7 @@
     text-align: center;
   }
   .disclaimer { font-size: 0.75rem; color: var(--gray-400); max-width: 600px; margin: 0 auto 24px; line-height: 1.7; }
-  .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 8px; }
-  .footer-logo span { color: var(--yellow); }
+  .footer-logo { display: flex; justify-content: center; margin-bottom: 16px; }
   .footer-copy { font-size: 0.78rem; color: var(--gray-400); }
 
   /* ANIMATIONS */
@@ -472,7 +467,9 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo"><img src="assets/logo.png" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span></div>
+  <div class="logo">
+    <img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" style="height: 65px; width: auto; object-fit: contain;" />
+  </div>
   <ul class="nav-links">
     <li><a href="#features">Funcionalidades</a></li>
     <li><a href="#security">Segurança</a></li>
@@ -550,10 +547,10 @@
 <div class="social-proof">
   <p>Usado por vendedores em todo o Brasil</p>
   <div class="logos">
-    <span class="logo-item"><img src="assets/logo.png" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
-    <span class="logo-item"><img src="assets/logo.png" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
-    <span class="logo-item"><img src="assets/logo.png" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
-    <span class="logo-item"><img src="assets/logo.png" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" style="height: 40px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" style="height: 40px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" style="height: 40px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" style="height: 40px; width: auto; object-fit: contain;" /></span>
   </div>
 </div>
 
@@ -745,7 +742,9 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><img src="assets/logo.png" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span></div>
+  <div class="footer-logo">
+    <img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/logo-616133b2-f8dd-44e4-81b1-c8e04bc68628.webp" alt="D2ChatPro Logo" style="height: 75px; width: auto; object-fit: contain;" />
+  </div>
   <div class="disclaimer">
     ⚠️ D2CHATPRO é uma extensão independente e não possui qualquer vínculo, parceria ou afiliação com WhatsApp Inc., Meta Platforms, Inc. ou qualquer uma de suas subsidiárias. WhatsApp® é uma marca registrada da Meta Platforms, Inc. O uso desta extensão é de responsabilidade exclusiva do usuário.
   </div>
@@ -980,30 +979,5 @@
 })();
 
 </script>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const logoMarkup = '<span style="font-weight: 900; font-size: 1.5rem; font-family: system-ui, -apple-system, sans-serif; display: inline-flex; align-items: center; text-transform: uppercase; letter-spacing: -0.5px;"><span style="color: #ffffff;">D2CHAT</span><span style="color: #FBBF24;">PRO</span></span>';
-                
-                // Find broken images that might be the logo
-                const images = document.querySelectorAll('img');
-                images.forEach(img => {
-                    if (img.src.toLowerCase().includes('logo') || (img.alt && img.alt.toLowerCase().includes('logo'))) {
-                        const wrapper = document.createElement('span');
-                        wrapper.innerHTML = logoMarkup;
-                        img.replaceWith(wrapper.firstChild);
-                    }
-                });
-                
-                // Find empty links in the header/nav that might be the logo container
-                const brandLinks = document.querySelectorAll('header a, nav a, footer a');
-                brandLinks.forEach(link => {
-                    if(link.innerHTML.trim() === '' || link.innerHTML.includes('img') === false && link.textContent.trim() === '') {
-                        link.innerHTML = logoMarkup;
-                        link.style.textDecoration = 'none';
-                    }
-                });
-            });
-        </script>
-        </body>
+</body>
 </html>
