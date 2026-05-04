@@ -472,7 +472,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo">D2CHAT<span>PRO</span></div>
+  <div class="logo"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/D2_-_300X90_-_CHECKOUT_-_BRANCO-497434a7-2973-40a2-af92-0eb704f25e54.webp" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span></div>
   <ul class="nav-links">
     <li><a href="#features">Funcionalidades</a></li>
     <li><a href="#security">Segurança</a></li>
@@ -550,10 +550,10 @@
 <div class="social-proof">
   <p>Usado por vendedores em todo o Brasil</p>
   <div class="logos">
-    <span class="logo-item">⭐ 4.9/5 no Chrome</span>
-    <span class="logo-item">🔒 100% Privado</span>
-    <span class="logo-item">🚀 +10.000 usuários</span>
-    <span class="logo-item">✅ Sem servidores externos</span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/D2_-_300X90_-_CHECKOUT_-_BRANCO-497434a7-2973-40a2-af92-0eb704f25e54.webp" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/D2_-_300X90_-_CHECKOUT_-_BRANCO-497434a7-2973-40a2-af92-0eb704f25e54.webp" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/D2_-_300X90_-_CHECKOUT_-_BRANCO-497434a7-2973-40a2-af92-0eb704f25e54.webp" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
+    <span class="logo-item"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/D2_-_300X90_-_CHECKOUT_-_BRANCO-497434a7-2973-40a2-af92-0eb704f25e54.webp" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span>
   </div>
 </div>
 
@@ -745,7 +745,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">D2CHAT<span>PRO</span></div>
+  <div class="footer-logo"><img src="https://images.dualite.app/d52f60de-2692-4885-8c36-cb03ccdd56d7/D2_-_300X90_-_CHECKOUT_-_BRANCO-497434a7-2973-40a2-af92-0eb704f25e54.webp" alt="D2ChatPro Logo" style="height: 45px; width: auto; object-fit: contain;" /></span></div>
   <div class="disclaimer">
     ⚠️ D2CHATPRO é uma extensão independente e não possui qualquer vínculo, parceria ou afiliação com WhatsApp Inc., Meta Platforms, Inc. ou qualquer uma de suas subsidiárias. WhatsApp® é uma marca registrada da Meta Platforms, Inc. O uso desta extensão é de responsabilidade exclusiva do usuário.
   </div>
@@ -980,5 +980,30 @@
 })();
 
 </script>
-</body>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const logoMarkup = '<span style="font-weight: 900; font-size: 1.5rem; font-family: system-ui, -apple-system, sans-serif; display: inline-flex; align-items: center; text-transform: uppercase; letter-spacing: -0.5px;"><span style="color: #ffffff;">D2CHAT</span><span style="color: #FBBF24;">PRO</span></span>';
+                
+                // Find broken images that might be the logo
+                const images = document.querySelectorAll('img');
+                images.forEach(img => {
+                    if (img.src.toLowerCase().includes('logo') || (img.alt && img.alt.toLowerCase().includes('logo'))) {
+                        const wrapper = document.createElement('span');
+                        wrapper.innerHTML = logoMarkup;
+                        img.replaceWith(wrapper.firstChild);
+                    }
+                });
+                
+                // Find empty links in the header/nav that might be the logo container
+                const brandLinks = document.querySelectorAll('header a, nav a, footer a');
+                brandLinks.forEach(link => {
+                    if(link.innerHTML.trim() === '' || link.innerHTML.includes('img') === false && link.textContent.trim() === '') {
+                        link.innerHTML = logoMarkup;
+                        link.style.textDecoration = 'none';
+                    }
+                });
+            });
+        </script>
+        </body>
 </html>
