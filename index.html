@@ -95,16 +95,43 @@
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 140px 24px 80px;
+    padding: 120px 40px 80px;
     position: relative;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+  }
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      text-align: center;
+    }
+    .hero-left { align-items: center; }
+    .hero-btns { justify-content: center; }
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
   .hero-glow {
     position: absolute;
-    top: 20%; left: 50%;
+    top: 20%; left: 30%;
     transform: translateX(-50%);
     width: 700px; height: 400px;
-    background: radial-gradient(ellipse, rgba(253,198,22,0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(253,198,22,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
   .badge {
@@ -116,18 +143,17 @@
     font-size: 0.8rem;
     color: var(--yellow);
     font-weight: 500;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     animation: fadeDown 0.6s ease both;
   }
   .badge-dot { width: 6px; height: 6px; background: var(--yellow); border-radius: 50%; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
   .hero h1 {
-    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1.0;
-    max-width: 900px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     animation: fadeDown 0.6s 0.1s ease both;
   }
   .hero h1 em {
@@ -136,18 +162,45 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
   .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     color: var(--gray-200);
-    max-width: 560px;
-    margin-bottom: 48px;
+    max-width: 480px;
+    margin-bottom: 40px;
     font-weight: 300;
     animation: fadeDown 0.6s 0.2s ease both;
   }
   .hero-btns {
-    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    display: flex; gap: 16px; flex-wrap: wrap;
     animation: fadeDown 0.6s 0.3s ease both;
-    margin-bottom: 72px;
   }
+
+  /* VIDEO EMBED */
+  .hero-video-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+    animation: fadeUp 0.8s 0.4s ease both;
+    background: var(--gray-800);
+    aspect-ratio: 16/9;
+  }
+  .hero-video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .hero-video-label {
+    font-size: 0.78rem;
+    color: var(--gray-400);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: fadeUp 0.8s 0.55s ease both;
+  }
+  .hero-video-label span { color: var(--yellow); font-weight: 600; }
   .btn-primary {
     background: var(--yellow);
     color: var(--black);
@@ -527,64 +580,32 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
-  <div class="badge"><span class="badge-dot"></span> ✓ Aprovado na auditoria do Google Chrome</div>
-  <h1>Transforme seu WhatsApp em uma <em>máquina de vendas</em></h1>
-  <p class="hero-sub">CRM completo integrado ao WhatsApp Web. Gerencie leads, automatize mensagens e feche mais negócios — tudo no seu navegador.</p>
-  <div class="hero-btns">
-    <button class="btn-primary">🚀 Começar Gratuitamente</button>
-    <button class="btn-secondary">▶ Ver como funciona</button>
-  </div>
+  <div class="hero-inner">
 
-  <div class="hero-mockup reveal">
-    <div class="mockup-frame">
-      <div class="mockup-bar">
-        <div class="mockup-dot d-red"></div>
-        <div class="mockup-dot d-yellow"></div>
-        <div class="mockup-dot d-green"></div>
-        <div class="mockup-url">web.whatsapp.com — D2CHATPRO CRM ativo</div>
-      </div>
-      <div class="mockup-body">
-        <div class="mock-sidebar">
-          <div class="mock-sidebar-title">Contatos — CRM</div>
-          <div class="mock-contact">
-            <svg class="mock-avatar" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#fdc616" opacity="0.2"/><text x="50%" y="55%" text-anchor="middle" font-size="14" fill="#fdc616" font-family="Syne" font-weight="800">C</text></svg>
-            <div class="mock-contact-info"><div class="mock-contact-name">Carlos Silva</div><div class="mock-contact-msg">Quero fechar hoje 🔥</div></div>
-            <div class="mock-tag">QUENTE</div>
-          </div>
-          <div class="mock-contact">
-            <svg class="mock-avatar" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#5096ff" opacity="0.2"/><text x="50%" y="55%" text-anchor="middle" font-size="14" fill="#5096ff" font-family="Syne" font-weight="800">A</text></svg>
-            <div class="mock-contact-info"><div class="mock-contact-name">Ana Gomes</div><div class="mock-contact-msg">Preciso do orçamento</div></div>
-          </div>
-          <div class="mock-contact">
-            <svg class="mock-avatar" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#50c850" opacity="0.2"/><text x="50%" y="55%" text-anchor="middle" font-size="14" fill="#50c850" font-family="Syne" font-weight="800">M</text></svg>
-            <div class="mock-contact-info"><div class="mock-contact-name">Marcos Ltd.</div><div class="mock-contact-msg">✅ Contrato assinado!</div></div>
-          </div>
-        </div>
-        <div class="mock-main">
-          <div class="mock-chat-header">
-            <svg class="mock-avatar" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#fdc616" opacity="0.2"/><text x="50%" y="55%" text-anchor="middle" font-size="14" fill="#fdc616" font-family="Syne" font-weight="800">C</text></svg>
-            <div><div class="mock-contact-name">Carlos Silva</div><div style="font-size:0.7rem;color:#50c850">● Online</div></div>
-          </div>
-          <div class="mock-chat-area">
-            <div class="mock-msg in">Olá! Vi o seu produto e tenho interesse.</div>
-            <div class="mock-msg out">Olá Carlos! Que ótimo 😊 Posso te enviar nossa proposta personalizada agora mesmo!</div>
-            <div class="mock-msg in">Perfeito! Pode mandar. Quero fechar hoje se der 🔥</div>
-            <div class="mock-msg out">✨ Proposta enviada via D2CHATPRO. Lembrete criado para amanhã às 9h!</div>
-          </div>
-          <div class="mock-chat-input">
-            <input class="mock-input-field" placeholder="Resposta rápida ou mensagem..." readonly>
-            <button class="mock-send">⚡</button>
-          </div>
-        </div>
-        <div class="mock-panel">
-          <div class="mock-panel-label">Notas do Lead</div>
-          <div class="mock-note">🎯 Viu no Instagram. Interesse em plano Pro.</div>
-          <div class="mock-note">📅 Follow-up: Amanhã 09:00</div>
-          <div class="mock-panel-label" style="margin-top:16px">Status</div>
-          <span class="mock-status-badge s-hot">🔥 QUENTE</span>
-        </div>
+    <!-- ESQUERDA: texto + CTAs -->
+    <div class="hero-left">
+      <div class="badge"><span class="badge-dot"></span> ✓ Aprovado na auditoria do Google Chrome</div>
+      <h1>Transforme seu WhatsApp em uma <em>máquina de vendas</em></h1>
+      <p class="hero-sub">CRM completo integrado ao WhatsApp Web. Gerencie leads, automatize mensagens e feche mais negócios — tudo no seu navegador.</p>
+      <div class="hero-btns">
+        <button class="btn-primary">🚀 Começar Gratuitamente</button>
+        <button class="btn-secondary">▶ Ver como funciona</button>
       </div>
     </div>
+
+    <!-- DIREITA: vídeo do YouTube -->
+    <div class="hero-right">
+      <div class="hero-video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/gBGwP3Bbs_g?rel=0&modestbranding=1&color=white"
+          title="D2CHATPRO — Como funciona"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="hero-video-label">▶ Assista ao vídeo e entenda como o <span>D2CHATPRO</span> funciona</p>
+    </div>
+
   </div>
 </section>
 
